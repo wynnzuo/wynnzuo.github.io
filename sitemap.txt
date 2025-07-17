@@ -1,0 +1,6 @@
+http://example.com/2025/07/17/%E5%88%98%E6%98%9F%E5%90%83p/
+http://example.com/tags/index.html
+http://example.com/categories/index.html
+http://example.com/about/index.html
+http://example.com/2025/07/16/hello-world/
+http://example.com/
