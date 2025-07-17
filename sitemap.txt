@@ -1,6 +1,8 @@
-http://example.com/tags/index.html
-http://example.com/categories/index.html
-http://example.com/about/index.html
-http://example.com/2025/07/17/%E5%88%98%E6%98%9F%E5%90%83p/
-http://example.com/2025/07/16/hello-world/
-http://example.com/
+https://wynnzuo.github.io/tags/index.html
+https://wynnzuo.github.io/categories/index.html
+https://wynnzuo.github.io/about/index.html
+https://wynnzuo.github.io/2025/07/17/%E5%88%98%E6%98%9F%E5%90%83p/
+https://wynnzuo.github.io/2025/07/17/asfd/%E5%88%98%E6%98%9F%E5%90%83p%20-%20%E5%89%AF%E6%9C%AC/
+https://wynnzuo.github.io/2025/07/16/hello-world/
+https://wynnzuo.github.io/
+https://wynnzuo.github.io/categories/asfd/
