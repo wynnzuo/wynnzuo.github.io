@@ -14,31 +14,29 @@ tags:
 
 ## 类图
 
-```mermaid
-classDiagram
-    class Command {
-        <<interface>>
-        +execute(): void
-        +undo(): void
-    }
-    class ConcreteCommand {
-        -receiver: Receiver
-        +execute(): void
-        +undo(): void
-    }
-    class Receiver {
-        +action(): void
-    }
-    class Invoker {
-        -command: Command
-        +setCommand(Command): void
-        +executeCommand(): void
-    }
-    class Client
-    Command <|.. ConcreteCommand
-    ConcreteCommand --> Receiver : invokes
-    Invoker --> Command : calls
-    Client --> Invoker : configures
+```
+┌──────────────┐        ┌──────────────────────┐
+│   Invoker    │        │      Command          │
+│              │        │  (interface)          │
+├──────────────┤        ├──────────────────────┤
+│ -command     │───────▶│ +execute()            │
+│ pressButton()│        │ +undo()               │
+└──────────────┘        └──────────┬───────────┘
+                                   │ implements
+                        ┌──────────┴───────────┐
+                        │   ConcreteCommand    │
+                        ├──────────────────────┤
+                        │ -receiver: Receiver  │
+                        ├──────────────────────┤
+                        │ +execute()──► receiver│
+                        │ +undo()     .action() │
+                        └──────────────────────┘
+
+┌──────────────┐           ▲
+│   Receiver   │           │ invokes
+├──────────────┤           │
+│ +action()    │───────────┘
+└──────────────┘
 ```
 
 ## Java 实现

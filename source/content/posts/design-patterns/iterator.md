@@ -14,34 +14,21 @@ tags:
 
 ## 类图
 
-```mermaid
-classDiagram
-    class Iterator~T~ {
-        <<interface>>
-        +hasNext(): boolean
-        +next(): T
-    }
-    class ConcreteIterator~T~ {
-        -collection: ConcreteCollection~T~
-        -index: int
-        +hasNext(): boolean
-        +next(): T
-    }
-    class IterableCollection~T~ {
-        <<interface>>
-        +createIterator(): Iterator~T~
-    }
-    class ConcreteCollection~T~ {
-        -items: List~T~
-        +createIterator(): Iterator~T~
-        +add(T): void
-    }
-    class Client
-    Iterator <|.. ConcreteIterator
-    IterableCollection <|.. ConcreteCollection
-    ConcreteIterator --> ConcreteCollection : traverses
-    Client --> IterableCollection : uses
-    Client --> Iterator : uses
+```
+┌──────────────────────┐    ┌──────────────────────┐
+│   IterableCollection │    │      Iterator<T>      │
+│  (interface)         │    │  (interface)          │
+├──────────────────────┤    ├──────────────────────┤
+│ +createIterator()────┼───▶│ +hasNext(): boolean   │
+└──────────┬───────────┘    │ +next(): T            │
+           │                └──────────────────────┘
+           │ implements               ▲ implements
+┌──────────┴───────────┐   ┌──────────┴───────────┐
+│   ConcreteCollection │   │   ConcreteIterator    │
+├──────────────────────┤   ├──────────────────────┤
+│ -items: List<T>      │   │ +hasNext()─► check idx│
+│ +add()               │   │ +next()───► return item│
+└──────────────────────┘   └──────────────────────┘
 ```
 
 ## Java 实现

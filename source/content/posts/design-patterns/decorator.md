@@ -14,30 +14,29 @@ tags:
 
 ## 类图
 
-```mermaid
-classDiagram
-    class Component {
-        <<interface>>
-        +operation(): void
-    }
-    class ConcreteComponent {
-        +operation(): void
-    }
-    class Decorator {
-        #component: Component
-        +operation(): void
-    }
-    class ConcreteDecoratorA {
-        +operation(): void
-    }
-    class ConcreteDecoratorB {
-        +operation(): void
-    }
-    Component <|.. ConcreteComponent
-    Component <|.. Decorator
-    Decorator <|-- ConcreteDecoratorA
-    Decorator <|-- ConcreteDecoratorB
-    Decorator o--> Component : wraps
+```
+┌──────────────────────┐
+│      Component       │
+│  (interface)         │
+├──────────────────────┤
+│ +operation()         │
+└──────────┬───────────┘
+           │ implements        ┌──────────────────────────┐
+┌──────────┴───────────┐      │     Decorator            │
+│   ConcreteComp       │      │  (abstract)              │
+├──────────────────────┤      ├──────────────────────────┤
+│ +operation()         │      │ -component: Component    │
+└──────────────────────┘      ├──────────────────────────┤
+                              │ +operation()──► delegate  │
+                              └──────────┬───────────────┘
+                                         │ extends
+                              ┌──────────┴───────────────┐
+                              │   ConcreteDecorator      │
+                              ├──────────────────────────┤
+                              │ +operation()             │
+                              │   ├─ super.operation()   │
+                              │   └─ extra behavior      │
+                              └──────────────────────────┘
 ```
 
 ## Java 实现

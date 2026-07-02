@@ -14,24 +14,26 @@ tags:
 
 ## 类图
 
-```mermaid
-classDiagram
-    class Flyweight {
-        <<interface>>
-        +operation(extrinsicState): void
-    }
-    class ConcreteFlyweight {
-        -intrinsicState: String
-        +operation(extrinsicState): void
-    }
-    class FlyweightFactory {
-        -pool: Map~String, Flyweight~
-        +getFlyweight(key): Flyweight
-    }
-    class Client
-    Flyweight <|.. ConcreteFlyweight
-    Client --> FlyweightFactory : uses
-    FlyweightFactory --> Flyweight : manages
+```
+┌──────────────────────┐
+│  FlyweightFactory    │
+├──────────────────────┤
+│ -pool: Map           │──── manages ────┐
+│ +getFlyweight(key)   │                │
+└──────────────────────┘                │
+                          ┌─────────────▼──────────────┐
+                          │     Flyweight              │
+ Client ──► getFlyweight │  (interface)               │
+   ──► reuse or create   ├────────────────────────────┤
+                          │ +operation(extrinsicState) │
+                          └──────────────┬─────────────┘
+                                         │
+                          ┌──────────────▼─────────────┐
+                          │   ConcreteFlyweight        │
+                          ├────────────────────────────┤
+                          │ -intrinsicState: shared    │
+                          │ +operation(extrinsicState) │
+                          └────────────────────────────┘
 ```
 
 ## Java 实现

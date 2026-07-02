@@ -14,30 +14,29 @@ tags:
 
 ## 类图
 
-```mermaid
-classDiagram
-    class Expression {
-        <<interface>>
-        +interpret(context): int
-    }
-    class TerminalExpression {
-        -value: int
-        +interpret(context): int
-    }
-    class NonTerminalExpression {
-        -left: Expression
-        -right: Expression
-        +interpret(context): int
-    }
-    class AddExpression
-    class SubtractExpression
-    class Context
-    Expression <|.. TerminalExpression
-    Expression <|.. NonTerminalExpression
-    NonTerminalExpression <|-- AddExpression
-    NonTerminalExpression <|-- SubtractExpression
-    NonTerminalExpression --> Expression : left
-    NonTerminalExpression --> Expression : right
+```
+             ┌──────────────────────────┐
+             │       Expression         │
+             │  (interface)             │
+             ├──────────────────────────┤
+             │ +interpret(context): int │
+             └──────────────────────────┘
+                        ▲
+           ┌────────────┴────────────┐
+           │                         │
+┌──────────┴──────────┐  ┌──────────┴──────────────────┐
+│  TerminalExpression  │  │  NonTerminalExpression      │
+├─────────────────────┤  ├─────────────────────────────┤
+│ -value / -name      │  │ -left: Expression           │
+│ +interpret()─►value │  │ -right: Expression           │
+└─────────────────────┘  │ +interpret()─► left ◀─▶ right│
+                          └─────────────────────────────┘
+                                     ▲
+                            ┌────────┴────────┐
+                            │                 │
+                   ┌────────┴───┐    ┌────────┴───┐
+                   │    Add     │    │  Subtract  │
+                   └────────────┘    └────────────┘
 ```
 
 ## Java 实现

@@ -14,14 +14,15 @@ tags:
 
 ## 类图
 
-```mermaid
-classDiagram
-    class Singleton {
-        -static instance: Singleton
-        -Singleton()
-        +static getInstance(): Singleton
-    }
-    Singleton --> Singleton : <<creates>>
+```
+┌──────────────────────┐
+│      Singleton       │
+├──────────────────────┤
+│ -instance: Singleton │
+├──────────────────────┤
+│ +getInstance()       │
+│ ◀── returns itself   │
+└──────────────────────┘
 ```
 
 ## Java 实现

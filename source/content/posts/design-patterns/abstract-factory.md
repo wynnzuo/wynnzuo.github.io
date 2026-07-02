@@ -14,41 +14,28 @@ tags:
 
 ## 类图
 
-```mermaid
-classDiagram
-    class AbstractFactory {
-        <<interface>>
-        +createProductA(): AbstractProductA
-        +createProductB(): AbstractProductB
-    }
-    class ConcreteFactory1 {
-        +createProductA(): AbstractProductA
-        +createProductB(): AbstractProductB
-    }
-    class ConcreteFactory2 {
-        +createProductA(): AbstractProductA
-        +createProductB(): AbstractProductB
-    }
-    class AbstractProductA {
-        <<interface>>
-    }
-    class ProductA1
-    class ProductA2
-    class AbstractProductB {
-        <<interface>>
-    }
-    class ProductB1
-    class ProductB2
-    AbstractFactory <|.. ConcreteFactory1
-    AbstractFactory <|.. ConcreteFactory2
-    AbstractProductA <|.. ProductA1
-    AbstractProductA <|.. ProductA2
-    AbstractProductB <|.. ProductB1
-    AbstractProductB <|.. ProductB2
-    ConcreteFactory1 --> ProductA1 : creates
-    ConcreteFactory1 --> ProductB1 : creates
-    ConcreteFactory2 --> ProductA2 : creates
-    ConcreteFactory2 --> ProductB2 : creates
+```
+┌──────────────────────┐      ┌──────────────────────┐
+│   AbstractFactory    │      │ AbstractProductA     │
+│  (interface)         │      │ (interface)          │
+├──────────────────────┤      └──────────────────────┘
+│ +createProductA()────┼─────▶        ▲
+│ +createProductB()────┼──┐          │ implements
+└──────────┬───────────┘  │  ┌────────┴──────────┐
+           │ implements   │  │   ProductA1       │
+┌──────────▼───────────┐  │  ├───────────────────┤
+│    WinFactory        │  │  │                   │
+├──────────────────────┤  │  └───────────────────┘
+│ +createProductA()    │──┘
+│ +createProductB()    │──┐  ┌──────────────────────┐
+└──────────────────────┘  │  │ AbstractProductB     │
+                          └─▶│ (interface)          │
+┌──────────────────────┐     └──────────────────────┘
+│    MacFactory        │              ▲
+├──────────────────────┤           implements
+│ +createProductA()    │     ┌────────┴──────────┐
+│ +createProductB()    │     │   ProductB1       │
+└──────────────────────┘     └───────────────────┘
 ```
 
 ## Java 实现

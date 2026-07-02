@@ -14,26 +14,24 @@ tags:
 
 ## 类图
 
-```mermaid
-classDiagram
-    class Prototype {
-        <<interface>>
-        +clone(): Prototype
-    }
-    class ConcretePrototype1 {
-        -field1: String
-        +clone(): Prototype
-    }
-    class ConcretePrototype2 {
-        -field2: int
-        +clone(): Prototype
-    }
-    class Client {
-        +operation(): void
-    }
-    Prototype <|.. ConcretePrototype1
-    Prototype <|.. ConcretePrototype2
-    Client --> Prototype : uses
+```
+┌──────────────────────┐
+│      Prototype       │
+│  (interface)         │
+├──────────────────────┤
+│ +clone(): Prototype  │◀──── returns copy
+└──────────┬───────────┘
+           │ implements
+┌──────────▼───────────┐
+│   ConcretePrototype  │
+├──────────────────────┤
+│ -field: String       │
+├──────────────────────┤
+│ +clone()             │
+│   └─ returns copy    │
+└──────────────────────┘
+
+Client ───▶ uses ───▶ Prototype
 ```
 
 ## Java 实现

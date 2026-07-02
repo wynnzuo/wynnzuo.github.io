@@ -14,29 +14,24 @@ tags:
 
 ## 类图
 
-```mermaid
-classDiagram
-    class Handler {
-        <<abstract>>
-        #next: Handler
-        +setNext(Handler): Handler
-        +handle(request): void
-    }
-    class ConcreteHandler1 {
-        +handle(request): void
-    }
-    class ConcreteHandler2 {
-        +handle(request): void
-    }
-    class ConcreteHandler3 {
-        +handle(request): void
-    }
-    class Client
-    Handler <|-- ConcreteHandler1
-    Handler <|-- ConcreteHandler2
-    Handler <|-- ConcreteHandler3
-    Handler o--> Handler : next
-    Client --> Handler : sends
+```
+                         ┌──────────────────────────┐
+ Client ───► request ───▶│        Handler           │
+                         │  (abstract)              │
+                         ├──────────────────────────┤
+                         │ #next: Handler           │
+                         │ +setNext()                │
+                         │ +handle()                 │
+                         └──────────┬───────────────┘
+                                    │ next
+              ┌─────────────────────┼─────────────────────┐
+              │                     │                     │
+    ┌─────────▼──────────┐  ┌──────▼──────────┐  ┌───────▼──────────┐
+    │ ConcreteHandler1   │  │ ConcreteHandler2│  │ ConcreteHandler3 │
+    ├────────────────────┤  ├─────────────────┤  ├──────────────────┤
+    │ if can handle: ok  │  │ if can handle   │  │ if can handle    │
+    │ else: next.handle()│  │ else: next      │  │ else: next       │
+    └────────────────────┘  └─────────────────┘  └──────────────────┘
 ```
 
 ## Java 实现

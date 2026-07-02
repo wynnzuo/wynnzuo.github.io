@@ -14,36 +14,22 @@ tags:
 
 ## 类图
 
-```mermaid
-classDiagram
-    class Subject {
-        <<interface>>
-        +attach(Observer): void
-        +detach(Observer): void
-        +notify(): void
-    }
-    class ConcreteSubject {
-        -state: int
-        -observers: List~Observer~
-        +getState(): int
-        +setState(int): void
-    }
-    class Observer {
-        <<interface>>
-        +update(): void
-    }
-    class ConcreteObserverA {
-        +update(): void
-    }
-    class ConcreteObserverB {
-        +update(): void
-    }
-    Subject <|.. ConcreteSubject
-    Observer <|.. ConcreteObserverA
-    Observer <|.. ConcreteObserverB
-    ConcreteSubject o--> Observer : notifies
-    ConcreteObserverA --> ConcreteSubject : observes
-    ConcreteObserverB --> ConcreteSubject : observes
+```
+┌──────────────────────┐          ┌──────────────────────┐
+│       Subject        │          │       Observer       │
+│  (interface/class)   │          │  (interface)         │
+├──────────────────────┤          ├──────────────────────┤
+│ -observers: List     │          │ +update()            │
+│ +attach(observer)    │          └──────────────────────┘
+│ +detach(observer)    │                    ▲
+│ +notifyAll()─────────┼──► notifies        │
+└──────────────────────┘      ┌─────────────┴─────────────┐
+                              │                           │
+                    ┌─────────┴──────┐          ┌─────────┴──────┐
+                    │ ConcreteObsA   │          │ ConcreteObsB   │
+                    ├────────────────┤          ├────────────────┤
+                    │ +update()      │          │ +update()      │
+                    └────────────────┘          └────────────────┘
 ```
 
 ## Java 实现

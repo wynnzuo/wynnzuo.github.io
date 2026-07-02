@@ -14,24 +14,24 @@ tags:
 
 ## 类图
 
-```mermaid
-classDiagram
-    class Subject {
-        <<interface>>
-        +request(): void
-    }
-    class RealSubject {
-        +request(): void
-    }
-    class Proxy {
-        -realSubject: RealSubject
-        +request(): void
-    }
-    class Client
-    Subject <|.. RealSubject
-    Subject <|.. Proxy
-    Proxy --> RealSubject : delegates
-    Client --> Subject : uses
+```
+┌──────────────┐
+│   Client     │
+└──────┬───────┘
+       │ uses
+┌──────▼───────┐      ┌──────────────────────┐
+│   Subject    │      │     RealSubject      │
+│  (interface) │      ├──────────────────────┤
+├──────────────┤      │ +request()           │
+│ +request()   │      └──────────────────────┘
+└──────┬───────┘              ▲
+       │ implements          │ delegates
+┌──────▼───────┐      ┌──────┴───────────┐
+│    Proxy     │      │ controls access  │
+├──────────────┤──────▶                  │
+│ -realSubject │      │ lazy init / log  │
+│ +request()   │      │ / cache          │
+└──────────────┘      └──────────────────┘
 ```
 
 ## Java 实现

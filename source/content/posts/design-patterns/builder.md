@@ -14,33 +14,23 @@ tags:
 
 ## 类图
 
-```mermaid
-classDiagram
-    class Builder {
-        <<interface>>
-        +buildStepA(): void
-        +buildStepB(): void
-        +getResult(): Product
-    }
-    class ConcreteBuilder1 {
-        +buildStepA(): void
-        +buildStepB(): void
-        +getResult(): Product
-    }
-    class ConcreteBuilder2 {
-        +buildStepA(): void
-        +buildStepB(): void
-        +getResult(): Product
-    }
-    class Director {
-        +construct(Builder): Product
-    }
-    class Product
-    Builder <|.. ConcreteBuilder1
-    Builder <|.. ConcreteBuilder2
-    Director --> Builder : uses
-    ConcreteBuilder1 --> Product : creates
-    ConcreteBuilder2 --> Product : creates
+```
+┌──────────────┐     uses     ┌──────────────────────┐
+│   Director   │─────────────▶│       Builder        │
+├──────────────┤              │  (interface)         │
+│ +construct() │              ├──────────────────────┤
+└──────────────┘              │ +buildStepA()        │
+                              │ +buildStepB()        │
+                              │ +getResult()         │
+                              └──────────┬───────────┘
+                                         │ implements
+                              ┌──────────┴───────────┐
+                              │  ConcreteBuilder     │
+                              ├──────────────────────┤
+                              │ +buildStepA()        │
+                              │ +buildStepB()        │
+                              │ +getResult() ───────▶ Product
+                              └──────────────────────┘
 ```
 
 ## Java 实现

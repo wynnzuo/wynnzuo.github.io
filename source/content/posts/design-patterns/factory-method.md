@@ -14,26 +14,20 @@ tags:
 
 ## 类图
 
-```mermaid
-classDiagram
-    class Product {
-        <<interface>>
-        +operation(): void
-    }
-    class ConcreteProduct {
-        +operation(): void
-    }
-    class Creator {
-        +factoryMethod(): Product
-        +someOperation(): void
-    }
-    class ConcreteCreator {
-        +factoryMethod(): Product
-    }
-    Product <|.. ConcreteProduct
-    Creator <|-- ConcreteCreator
-    Creator --> Product : creates
-    ConcreteCreator --> ConcreteProduct : creates
+```
+┌──────────────────────┐      ┌──────────────────────┐
+│      Creator         │      │      Product         │
+│  (abstract)          │      │  (interface)         │
+├──────────────────────┤      ├──────────────────────┤
+│ +factoryMethod()     │─────▶│ +operation()         │
+│ +someOperation()     │      └──────────────────────┘
+└──────────┬───────────┘                ▲
+           │ implements                 │ implements
+┌──────────▼───────────┐      ┌────────┴──────────┐
+│  ConcreteCreator     │      │ ConcreteProduct   │
+├──────────────────────┤      ├───────────────────┤
+│ +factoryMethod()─────┼──────▶                   │
+└──────────────────────┘      └───────────────────┘
 ```
 
 ## Java 实现

@@ -14,23 +14,24 @@ tags:
 
 ## 类图
 
-```mermaid
-classDiagram
-    class Target {
-        <<interface>>
-        +request(): void
-    }
-    class Adapter {
-        -adaptee: Adaptee
-        +request(): void
-    }
-    class Adaptee {
-        +specificRequest(): void
-    }
-    class Client
-    Target <|.. Adapter
-    Adapter --> Adaptee : delegates
-    Client --> Target : uses
+```
+┌──────────────┐
+│   Client     │
+│              │
+└──────┬───────┘
+       │ uses
+┌──────▼───────┐      ┌──────────────────────┐
+│   Target     │      │       Adaptee        │
+│  (interface) │      ├──────────────────────┤
+├──────────────┤      │ +specificRequest()   │
+│ +request()   │      └──────────────────────┘
+└──────┬───────┘              ▲
+       │ implements           │ delegates
+┌──────▼───────┐     ┌───────┴───────────┐
+│   Adapter    │     │  (wraps Adaptee)  │
+├──────────────┤────▶│                   │
+│ +request()   │     └───────────────────┘
+└──────────────┘
 ```
 
 ## Java 实现

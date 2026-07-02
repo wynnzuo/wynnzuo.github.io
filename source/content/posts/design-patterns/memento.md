@@ -14,24 +14,23 @@ tags:
 
 ## 类图
 
-```mermaid
-classDiagram
-    class Originator {
-        -state: String
-        +createMemento(): Memento
-        +restore(Memento): void
-    }
-    class Memento {
-        -state: String
-        +getState(): String
-    }
-    class Caretaker {
-        -mementos: List~Memento~
-        +save(Memento): void
-        +get(index): Memento
-    }
-    Originator --> Memento : creates
-    Caretaker --> Memento : stores
+```
+┌──────────────┐    creates    ┌──────────────────────┐
+│  Originator  │──────────────▶│       Memento        │
+├──────────────┤               ├──────────────────────┤
+│ -state       │               │ -state: final        │
+├──────────────┤               │ +getState()           │
+│ +createMemento()             │                       │
+│ +restore(m)   │◀───── restores│                      │
+└──────────────┘               └──────────────────────┘
+                                        ▲ stores
+                               ┌────────┴──────────┐
+                               │     Caretaker     │
+                               ├───────────────────┤
+                               │ -mementos: List   │
+                               │ +push(m)          │
+                               │ +pop()            │
+                               └───────────────────┘
 ```
 
 ## Java 实现

@@ -14,28 +14,23 @@ tags:
 
 ## 类图
 
-```mermaid
-classDiagram
-    class Component {
-        <<interface>>
-        +operation(): void
-        +add(Component): void
-        +remove(Component): void
-        +getChild(int): Component
-    }
-    class Leaf {
-        +operation(): void
-    }
-    class Composite {
-        -children: List~Component~
-        +operation(): void
-        +add(Component): void
-        +remove(Component): void
-        +getChild(int): Component
-    }
-    Component <|.. Leaf
-    Component <|.. Composite
-    Composite o--> Component : contains
+```
+┌──────────────────────┐
+│      Component       │
+│  (interface)         │◀──── root of tree
+├──────────────────────┤
+│ +operation()         │
+│ +add()               │
+│ +remove()            │
+└──────────┬───────────┘
+           │ implements        ┌──────────────────────────┐
+┌──────────┤───────────┐      │    Composite             │
+│   Leaf   │           │      ├──────────────────────────┤
+├──────────┘           │      │ -children: List<Compo...> │
+│ +operation()         │      ├──────────────────────────┤
+└──────────────────────┘      │ +operation()─► loops      │
+                              │ +add() +remove()          │
+                              └──────────────────────────┘
 ```
 
 ## Java 实现

@@ -14,28 +14,22 @@ tags:
 
 ## 类图
 
-```mermaid
-classDiagram
-    class Facade {
-        -subsystemA: SubsystemA
-        -subsystemB: SubsystemB
-        -subsystemC: SubsystemC
-        +operation(): void
-    }
-    class SubsystemA {
-        +operationA(): void
-    }
-    class SubsystemB {
-        +operationB(): void
-    }
-    class SubsystemC {
-        +operationC(): void
-    }
-    class Client
-    Facade --> SubsystemA : delegates
-    Facade --> SubsystemB : delegates
-    Facade --> SubsystemC : delegates
-    Client --> Facade : uses
+```
+┌─────────────────────────────────────┐
+│              Facade                 │
+├─────────────────────────────────────┤
+│ +start() ───┬──────┬──────┬──────── │
+└─────────────┼──────┼──────┼─────────┘
+              │      │      │
+    ┌─────────┘      │      └─────────┐
+    │                │                │
+┌───▼──────┐  ┌──────▼──────┐  ┌─────▼─────┐
+│   CPU    │  │   Memory   │  │ HardDrive │
+├──────────┤  ├────────────┤  ├───────────┤
+│ freeze() │  │ load()     │  │ read()    │
+│ jump()   │  │            │  │           │
+│ execute()│  │            │  │           │
+└──────────┘  └────────────┘  └───────────┘
 ```
 
 ## Java 实现

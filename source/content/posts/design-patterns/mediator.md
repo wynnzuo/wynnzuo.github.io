@@ -14,33 +14,29 @@ tags:
 
 ## 类图
 
-```mermaid
-classDiagram
-    class Mediator {
-        <<interface>>
-        +notify(sender: Component, event: String): void
-    }
-    class ConcreteMediator {
-        -componentA: ComponentA
-        -componentB: ComponentB
-        +notify(sender: Component, event: String): void
-    }
-    class Component {
-        #mediator: Mediator
-        +setMediator(Mediator): void
-    }
-    class ComponentA {
-        +doA(): void
-    }
-    class ComponentB {
-        +doB(): void
-    }
-    Mediator <|.. ConcreteMediator
-    Component <|-- ComponentA
-    Component <|-- ComponentB
-    ConcreteMediator o--> ComponentA
-    ConcreteMediator o--> ComponentB
-    Component --> Mediator : notifies
+```
+┌─────────────────────────────────────────────────┐
+│                Mediator (interface)              │
+├─────────────────────────────────────────────────┤
+│ +notify(sender, event)                           │
+└─────────────────────────────────────────────────┘
+                    ▲
+                    │ implements
+┌───────────────────┴────────────────────────────────┐
+│              ConcreteMediator                       │
+├────────────────────────────────────────────────────┤
+│ -componentA: ComponentA                             │
+│ -componentB: ComponentB                             │
+│ +notify(sender, event)──► coordinates components   │
+└──┬────────────────────────────────────────────────┬─┘
+   │                                                │
+   │ manages                                        │ manages
+   │                                                │
+┌──┴──────────────┐                      ┌─────────┴─────────────┐
+│   ComponentA    │                      │     ComponentB        │
+├─────────────────┤                      ├───────────────────────┤
+│                 │──► notify(mediator)──▶│                       │
+└─────────────────┘                      └───────────────────────┘
 ```
 
 ## Java 实现
