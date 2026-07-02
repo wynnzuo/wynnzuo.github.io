@@ -5,7 +5,6 @@ date: 2026-07-02
 draft: false
 tags:
   - 设计模式
-  - adapter
 ---
 
 ## 意图
