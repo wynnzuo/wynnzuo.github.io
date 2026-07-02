@@ -14,45 +14,30 @@ tags:
 
 ## 类图
 
-```mermaid
-classDiagram
-    class Visitor {
-        <<interface>>
-        +visitConcreteElementA(ConcreteElementA): void
-        +visitConcreteElementB(ConcreteElementB): void
-    }
-    class ConcreteVisitor1 {
-        +visitConcreteElementA(ConcreteElementA): void
-        +visitConcreteElementB(ConcreteElementB): void
-    }
-    class ConcreteVisitor2 {
-        +visitConcreteElementA(ConcreteElementA): void
-        +visitConcreteElementB(ConcreteElementB): void
-    }
-    class Element {
-        <<interface>>
-        +accept(Visitor): void
-    }
-    class ConcreteElementA {
-        +accept(Visitor): void
-        +operationA(): void
-    }
-    class ConcreteElementB {
-        +accept(Visitor): void
-        +operationB(): void
-    }
-    class ObjectStructure {
-        -elements: List~Element~
-        +attach(Element): void
-        +accept(Visitor): void
-    }
-    Visitor <|.. ConcreteVisitor1
-    Visitor <|.. ConcreteVisitor2
-    Element <|.. ConcreteElementA
-    Element <|.. ConcreteElementB
-    ConcreteElementA --> Visitor : double dispatch
-    ConcreteElementB --> Visitor : double dispatch
-    ObjectStructure o--> Element : contains
+```
+┌──────────────────────┐    ┌──────────────────────┐
+│      Element         │    │       Visitor         │
+│  (interface)         │    │  (interface)          │
+├──────────────────────┤    ├──────────────────────┤
+│ +accept(Visitor)     │    │ +visit(ElementA)      │
+└──────────┬───────────┘    │ +visit(ElementB)      │
+           │                │ +visit(ElementC)      │
+           │ implements     └──────────────────────┘
+┌──────────┴───────────┐              ▲
+│  ConcreteElementA    │              │ implements
+├──────────────────────┤   ┌──────────┴───────────┐
+│ +accept(v)           │   │   ConcreteVisitor    │
+│   └─ v.visit(this)   │   ├──────────────────────┤
+└──────────────────────┘   │ +visit(ElementA): opA│
+                           │ +visit(ElementB): opB│
+┌──────────────────────┐   │ +visit(ElementC): opC│
+│  ConcreteElementB    │   └──────────────────────┘
+├──────────────────────┤
+│ +accept(v)           │         ObjectStructure
+│   └─ v.visit(this)   │    ┌──────────────────────┐
+└──────────────────────┘    │ -elements: List      │
+                           │ +accept(Visitor)──────│──► iterates & accepts
+                           └──────────────────────┘
 ```
 
 ## Java 实现

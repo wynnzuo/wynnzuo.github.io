@@ -14,30 +14,22 @@ tags:
 
 ## 类图
 
-```mermaid
-classDiagram
-    class Strategy {
-        <<interface>>
-        +execute(data): int
-    }
-    class ConcreteStrategyA {
-        +execute(data): int
-    }
-    class ConcreteStrategyB {
-        +execute(data): int
-    }
-    class ConcreteStrategyC {
-        +execute(data): int
-    }
-    class Context {
-        -strategy: Strategy
-        +setStrategy(Strategy): void
-        +executeStrategy(data): int
-    }
-    Strategy <|.. ConcreteStrategyA
-    Strategy <|.. ConcreteStrategyB
-    Strategy <|.. ConcreteStrategyC
-    Context --> Strategy : delegates
+```
+┌──────────────┐      delegates   ┌──────────────────────┐
+│   Context    │─────────────────▶│      Strategy         │
+├──────────────┤                  │  (interface)          │
+│ -strategy    │                  ├──────────────────────┤
+│ setStrategy()│                  │ +execute(data)        │
+│ execute()────┼──► strategy.     └──────────────────────┘
+│              │      execute()             ▲
+└──────────────┘                           │ implements
+               ┌───────────────────────────┼──────────────────┐
+               │                           │                  │
+    ┌──────────┴──────────┐  ┌─────────────┴──────┐  ┌──────┴──────────┐
+    │   BubbleSort        │  │     QuickSort      │  │   MergeSort     │
+    ├─────────────────────┤  ├────────────────────┤  ├─────────────────┤
+    │ +execute(array)     │  │ +execute(array)    │  │ +execute(array) │
+    └─────────────────────┘  └────────────────────┘  └─────────────────┘
 ```
 
 ## Java 实现

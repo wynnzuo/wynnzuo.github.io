@@ -39,9 +39,9 @@ enableEmoji = true
   [params.giscus]
     enable = true
     repo = "wynnzuo/wynnzuo.github.io"
-    repoId = "YOUR_REPO_ID"
+    repoId = "R_kgDOTLYjxA"
     category = "Announcements"
-    categoryId = "YOUR_CATEGORY_ID"
+    categoryId = "DIC_kwDOTLYjxM4DAWIZ"
     mapping = "pathname"
     inputPosition = "bottom"
     theme = "preferred_color_scheme"

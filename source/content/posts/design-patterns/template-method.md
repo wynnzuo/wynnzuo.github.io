@@ -14,25 +14,29 @@ tags:
 
 ## 类图
 
-```mermaid
-classDiagram
-    class AbstractClass {
-        +templateMethod(): void
-        #primitiveOperation1(): void
-        #primitiveOperation2(): void
-        #hook(): void
-    }
-    class ConcreteClassA {
-        #primitiveOperation1(): void
-        #primitiveOperation2(): void
-    }
-    class ConcreteClassB {
-        #primitiveOperation1(): void
-        #primitiveOperation2(): void
-        #hook(): void
-    }
-    AbstractClass <|-- ConcreteClassA
-    AbstractClass <|-- ConcreteClassB
+```
+┌─────────────────────────────────────┐
+│          AbstractClass              │
+├─────────────────────────────────────┤
+│ +templateMethod()  (final)          │
+│   ├── primitiveOperation1()         │
+│   ├── primitiveOperation2()         │
+│   └── hook()  (optional)            │
+│                                     │
+│ #primitiveOperation1()  (abstract)  │
+│ #primitiveOperation2()  (abstract)  │
+│ #hook()  (default empty)            │
+└──────────────────┬──────────────────┘
+                   │ extends
+          ┌────────┴────────┐
+          │                 │
+┌─────────▼──────┐  ┌──────▼─────────┐
+│ ConcreteClassA │  │ ConcreteClassB │
+├────────────────┤  ├────────────────┤
+│ op1()          │  │ op1()          │
+│ op2()          │  │ op2()          │
+│                │  │ hook()──► yes  │
+└────────────────┘  └────────────────┘
 ```
 
 ## Java 实现

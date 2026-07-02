@@ -14,32 +14,23 @@ tags:
 
 ## 类图
 
-```mermaid
-classDiagram
-    class Context {
-        -state: State
-        +setState(State): void
-        +request(): void
-    }
-    class State {
-        <<interface>>
-        +handle(Context): void
-    }
-    class ConcreteStateA {
-        +handle(Context): void
-    }
-    class ConcreteStateB {
-        +handle(Context): void
-    }
-    class ConcreteStateC {
-        +handle(Context): void
-    }
-    State <|.. ConcreteStateA
-    State <|.. ConcreteStateB
-    State <|.. ConcreteStateC
-    Context --> State : delegates
-    ConcreteStateA --> Context : transitions
-    ConcreteStateB --> Context : transitions
+```
+┌──────────────┐     delegates    ┌──────────────────────┐
+│   Context    │─────────────────▶│        State          │
+├──────────────┤                  │  (interface)          │
+│ -state: State│                  ├──────────────────────┤
+│ request()────┼──► state.handle()│ +handle(context)     │
+│ setState(s)  │                  └──────────────────────┘
+└──────────────┘                            ▲
+                                            │ implements
+               ┌────────────────────────────┼────────────────────────┐
+               │                            │                        │
+    ┌──────────┴──────────┐      ┌──────────┴──────────┐   ┌────────┴──────────┐
+    │     ReadyState      │      │    HasCoinState     │   │  DispensingState  │
+    ├─────────────────────┤      ├─────────────────────┤   ├───────────────────┤
+    │ +handle(context)    │      │ +handle(context)    │   │ +handle(context)  │
+    │   insertCoin()      │      │   selectProduct()   │   │   dispense()      │
+    └─────────────────────┘      └─────────────────────┘   └───────────────────┘
 ```
 
 ## Java 实现
