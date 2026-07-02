@@ -1,3 +1,107 @@
-baseURL = 'https://example.org/'
-locale = 'en-us'
-title = 'My New Hugo Project'
+baseURL = "https://wynnzuo.github.io"
+title  = "Wynn's Blog"
+theme  = "PaperMod"
+defaultContentLanguage = "zh-cn"
+paginate = 10
+
+# Build output to main/
+publishDir = "../main"
+
+enableRobotsTXT = true
+enableEmoji = true
+
+[params]
+  # 主题配置
+  env = "production"
+  description = "Wynn's Personal Blog"
+  keywords = [ "Blog", "Portfolio" ]
+  author = "Wynn"
+  DateFormat = "2006-01-02"
+  defaultTheme = "auto"
+  disableThemeToggle = false
+  ShowReadingTime = true
+  ShowShareButtons = true
+  ShowPostNavLinks = true
+  ShowBreadCrumbs = true
+  ShowCodeCopyButtons = true
+  ShowWordCount = true
+  ShowRssButtonInSectionTermList = true
+  UseHugoToc = true
+  disableSpecial1stPost = false
+  disableScrollToTop = false
+  comments = true
+  hidemeta = false
+  hideSummary = false
+  showtoc = false
+  tocopen = false
+
+  # Giscus 评论
+  [params.giscus]
+    enable = true
+    repo = "wynnzuo/wynnzuo.github.io"
+    repoId = "YOUR_REPO_ID"
+    category = "Announcements"
+    categoryId = "YOUR_CATEGORY_ID"
+    mapping = "pathname"
+    inputPosition = "bottom"
+    theme = "preferred_color_scheme"
+    lang = "zh-CN"
+    dataStrict = "1"
+    reactionsEnabled = "1"
+    emitMetadata = "0"
+    loading = "lazy"
+
+  # 主页信息
+  [params.homeInfoParams]
+    Title = "👋 你好，我是 Wynn"
+    Content = "欢迎来到我的博客，这里记录技术思考、项目心得与生活随想。"
+
+  # 社交链接
+  [[params.socialIcons]]
+    name = "github"
+    url = "https://github.com/wynnzuo"
+  [[params.socialIcons]]
+    name = "email"
+    url = "mailto:wynn@example.com"
+
+  # 导航菜单
+  [[params.menu.main]]
+    identifier = "posts"
+    name = "📝 文章"
+    url = "/posts/"
+    weight = 1
+  [[params.menu.main]]
+    identifier = "search"
+    name = "🔍 搜索"
+    url = "/search/"
+    weight = 2
+  [[params.menu.main]]
+    identifier = "tags"
+    name = "🏷️ 标签"
+    url = "/tags/"
+    weight = 3
+  [[params.menu.main]]
+    identifier = "about"
+    name = "👤 关于"
+    url = "/about/"
+    weight = 4
+  [[params.menu.main]]
+    identifier = "archives"
+    name = "📦 归档"
+    url = "/archives/"
+    weight = 5
+
+# 输出格式（搜索功能需要 JSON）
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+
+# Markdown 渲染
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+  [markup.highlight]
+    codeFences = true
+    guessSyntax = true
+    lineNos = true
+    style = "dracula"

@@ -1,0 +1,66 @@
+# Hugo + Giscus 博客自动部署
+# 当 push 到 main 分支时，构建 Hugo 站点并部署到 GitHub Pages
+
+name: Deploy Hugo Site
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'source/**'
+      - '.github/workflows/deploy.yml'
+  workflow_dispatch:  # 允许手动触发
+
+# 权限设置
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# 并发控制
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+# 默认使用 bash
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      HUGO_VERSION: 0.163.3
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive  # 拉取 PaperMod 主题
+          fetch-depth: 0
+
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: ${{ env.HUGO_VERSION }}
+          extended: true
+
+      - name: Build Hugo site
+        run: hugo --minify
+        working-directory: source
+
+      - name: Upload static files as Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: main/
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
