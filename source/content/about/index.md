@@ -15,4 +15,4 @@ disableComments: true
 ## 联系方式
 
 - GitHub: [wynnzuo](https://github.com/wynnzuo)
-- Email: wynn@example.com
+- Email: wynnzuo@163.com

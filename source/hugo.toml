@@ -89,7 +89,7 @@ enableEmoji = true
     url = "https://github.com/wynnzuo"
   [[params.socialIcons]]
     name = "email"
-    url = "mailto:wynn@example.com"
+    url = "mailto:wynnzuo@163.com"
 
 
 # 输出格式（搜索功能需要 JSON）
