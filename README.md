@@ -2,7 +2,7 @@
 
 基于 [Hugo](https://gohugo.io/) + [PaperMod](https://github.com/adityatelange/hugo-PaperMod) 主题的个人博客，评论系统使用 [Giscus](https://giscus.app/)。
 
-已发布 23 篇 GoF 设计模式系列文章（含 Java 代码 + ASCII 结构图），可通过标签 [设计模式](https://wynnzuo.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/) 查看。
+已发布 23 篇 GoF 设计模式系列文章（含 Java 代码 + ASCII 结构图），以及行业投资分析文章，可通过标签 [设计模式](https://wynnzuo.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/) 和 [投资](https://wynnzuo.github.io/tags/%E6%8A%95%E8%B5%84/) 查看。
 
 ## 目录结构
 
@@ -10,8 +10,9 @@
 wynnzuo.github.io/
 ├── source/                     # Hugo 源码
 │   ├── content/                # Markdown 文章
-│   │   ├── posts/              # 博客文章
-│   │   │   └── design-patterns/ # 23 篇设计模式
+│   │   ├── posts/
+│   │   │   ├── design-patterns/ # 23 篇设计模式
+│   │   │   └── investment/      # 投资分析
 │   │   ├── about/              # 关于页面
 │   │   ├── archives/           # 归档
 │   │   └── search/             # 搜索
