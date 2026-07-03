@@ -32,10 +32,15 @@ enableEmoji = true
   url = "/about/"
   weight = 4
 [[menu.main]]
+  identifier = "projects"
+  name = "📂 项目"
+  url = "/projects/"
+  weight = 5
+[[menu.main]]
   identifier = "archives"
   name = "📦 归档"
   url = "/archives/"
-  weight = 5
+  weight = 6
 
 [params]
   # 主题配置
